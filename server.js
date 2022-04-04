@@ -9,6 +9,7 @@ const { ExpressPeerServer } = require("peer");
 const peerServer = ExpressPeerServer(server, {
     debug: true,
 });
+const port = (process.env.PORT || 3000);
 app.use("/peerjs", peerServer);
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -80,6 +81,6 @@ io.on("connection", (socket) => {
 mongoose.connect(dbUrl, { appName: "something" }).then(() => console.log('connected'))
     .catch(e => console.log(e));
 
-server.listen(3000, () => {
+server.listen(port, () => {
     console.log('server is running on port', server.address().port);
 });
