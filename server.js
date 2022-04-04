@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const server = require("https").Server(app);
+const server = require("http").Server(app);
 const { v4: uuidv4 } = require("uuid");
 app.set("view engine", "ejs");
 const io = require("socket.io")(server);
