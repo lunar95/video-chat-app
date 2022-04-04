@@ -72,10 +72,15 @@ app.get("/:room", (req, res) => {
 
 
 io.on("connection", (socket) => {
+
     socket.on("join-room", (roomId, userId) => {
         socket.join(roomId);
         socket.to(roomId).broadcast.emit("user-connected", userId);
     });
+
+    socket.on("disconnect", () => {
+        console.log("someone disconnected");
+    })
 });
 
 mongoose.connect(dbUrl, { appName: "something" }).then(() => console.log('connected'))
