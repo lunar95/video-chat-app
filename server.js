@@ -74,6 +74,10 @@ app.get("/:room", (req, res) => {
     res.render("room", { roomId: req.params.room });
 });
 
+io.configure(function () {
+    io.set("transports", ["xhr-polling"]);
+    io.set("polling duration", 10);
+});
 
 io.on("connection", (socket) => {
 
