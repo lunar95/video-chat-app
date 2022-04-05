@@ -20,51 +20,51 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
 const mongoose = require('mongoose');
-let Message = mongoose.model('Message', {
-    name: String,
-    message: String
-})
+// let Message = mongoose.model('Message', {
+//     name: String,
+//     message: String
+// })
 
 const dbUrl = 'mongodb+srv://SomeBodyOnceToldMe:TheWorldIsGonnaRollMe@message0.2qcjp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-app.get('/messages', (req, res) => {
-    Message.find({}, (err, messages) => {
-        res.send(messages);
-    })
-})
+// app.get('/messages', (req, res) => {
+//     Message.find({}, (err, messages) => {
+//         res.send(messages);
+//     })
+// })
 
 
-app.get('/messages/:user', (req, res) => {
-    let user = req.params.user
-    Message.find({ name: user }, (err, messages) => {
-        res.send(messages);
-    })
-})
+// app.get('/messages/:user', (req, res) => {
+//     let user = req.params.user
+//     Message.find({ name: user }, (err, messages) => {
+//         res.send(messages);
+//     })
+// })
 
 
-app.post('/messages', async (req, res) => {
-    try {
-        let message = new Message(req.body);
+// app.post('/messages', async (req, res) => {
+//     try {
+//         let message = new Message(req.body);
 
-        let savedMessage = await message.save()
-        console.log('saved');
+//         let savedMessage = await message.save()
+//         console.log('saved');
 
-        let censored = await Message.findOne({ message: 'badword' });
-        if (censored)
-            await Message.remove({ _id: censored.id })
-        else
-            io.emit('message', req.body);
-        res.sendStatus(200);
-    }
-    catch (error) {
-        res.sendStatus(500);
-        return console.log('error', error);
-    }
-    finally {
-        console.log('Message Posted')
-    }
+//         let censored = await Message.findOne({ message: 'badword' });
+//         if (censored)
+//             await Message.remove({ _id: censored.id })
+//         else
+//             io.emit('message', req.body);
+//         res.sendStatus(200);
+//     }
+//     catch (error) {
+//         res.sendStatus(500);
+//         return console.log('error', error);
+//     }
+//     finally {
+//         console.log('Message Posted')
+//     }
 
-});
+// });
 
 app.get("/", (req, res) => {
     res.redirect(`/${uuidv4()}`);
@@ -87,8 +87,8 @@ io.on("connection", (socket) => {
     })
 });
 
-mongoose.connect(dbUrl, { appName: "something" }).then(() => console.log('connected'))
-    .catch(e => console.log(e));
+// mongoose.connect(dbUrl, { appName: "something" }).then(() => console.log('connected'))
+//     .catch(e => console.log(e));
 
 server.listen(port, () => {
     console.log('server is running on port', server.address().port);
