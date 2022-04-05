@@ -74,11 +74,6 @@ app.get("/:room", (req, res) => {
     res.render("room", { roomId: req.params.room });
 });
 
-io.configure(function () {
-    io.set("transports", ["xhr-polling"]);
-    io.set("polling duration", 10);
-});
-
 io.on("connection", (socket) => {
 
     socket.on("join-room", (roomId, userId) => {
@@ -93,7 +88,7 @@ io.on("connection", (socket) => {
 
 // mongoose.connect(dbUrl, { appName: "something" }).then(() => console.log('connected'))
 //     .catch(e => console.log(e));
-
+io.listen(4000);
 server.listen(port, () => {
     console.log('server is running on port', server.address().port);
 });
